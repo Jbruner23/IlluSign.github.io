@@ -127,7 +127,7 @@
 </section>
 
 <script>
-  // List of video pairs (original video + illustration)
+
   const videoPairs = [
     { original: "./static/videos/balkan_resized.mp4", illustration: "./static/illustrations/spline_balkan.png" },
     { original: "./static/videos/bank_resized.mp4", illustration: "./static/illustrations/spline_bank.png" },
@@ -149,13 +149,11 @@
     const pair = videoPairs[index];
 
     container.innerHTML = `
-      <div style="display: flex; gap: 20px; justify-content: center;">
+      <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
         <video autoplay muted loop playsinline height="300">
           <source src="${pair.original}" type="video/mp4">
         </video>
-        <video autoplay muted loop playsinline height="300">
-          <source src="${pair.illustration}" type="video/mp4">
-        </video>
+        <img src="${pair.illustration}" alt="Illustration" height="300">
       </div>
     `;
   }
