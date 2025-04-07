@@ -55,7 +55,7 @@
             <span class="author-block">
               <a href="https://www.linkedin.com/in/amit-moryossef">Amit Moryossef</a><sup>2</sup>,</span>
             <span class="author-block">
-              <a href="https://www.cs.tau.ac.il/~wolf/">Lior wolf</a><sup>3</sup>,
+              <a href="https://www.cs.tau.ac.il/~wolf/">Lior Wolf</a><sup>3</sup>,
             </span>
 
           </div>
@@ -110,7 +110,8 @@
 <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
-      <div id="video-pair-container">
+      <div id="video-pair-container" style="display: flex; overflow-x: auto; gap: 20px; scroll-behavior: smooth; padding-bottom: 20px;">
+      <!-- <div id="video-pair-container"> -->
         <!-- Video pairs will be dynamically inserted here -->
       </div>
     </div>
@@ -127,6 +128,53 @@
 </section>
 
 <script>
+  const videoPairs = [
+    { original: "./static/videos/balkan_resized.mp4", illustration: "./static/illustrations/spline_balkan.png" },
+    { original: "./static/videos/bank_resized.mp4", illustration: "./static/illustrations/spline_bank.png" },
+    { original: "./static/videos/berlin_resized.mp4", illustration: "./static/illustrations/spline_berlin.png" },
+    { original: "./static/videos/bonn_resized.mp4", illustration: "./static/illustrations/spline_bonn.png" },
+    { original: "./static/videos/einsam_resized.mp4", illustration: "./static/illustrations/spline_einsam.png" },
+    { original: "./static/videos/gurke_resized.mp4", illustration: "./static/illustrations/spline_gurke.png" },
+    { original: "./static/videos/heraus_resized.mp4", illustration: "./static/illustrations/spline_heraus.png" },
+    { original: "./static/videos/name_resized.mp4", illustration: "./static/illustrations/spline_name.png" },
+    { original: "./static/videos/party_resized.mp4", illustration: "./static/illustrations/spline_party.png" },
+    { original: "./static/videos/ST_JOSEPH_INSTITUTE_resized.mp4", illustration: "./static/illustrations/spline_ST_JOSEPH_INSTITUTE.png" },
+    { original: "./static/videos/mensch_resized.mp4", illustration: "./static/illustrations/spline_mensch.png" }
+  ];
+
+  const container = document.getElementById("video-pair-container");
+
+  // Add all pairs to the container
+  videoPairs.forEach(pair => {
+    const pairDiv = document.createElement('div');
+    pairDiv.style.minWidth = '600px'; // Adjust based on your layout
+    pairDiv.style.display = 'flex';
+    pairDiv.style.flexDirection = 'row';
+    pairDiv.style.alignItems = 'center';
+    pairDiv.style.justifyContent = 'center';
+    pairDiv.style.gap = '20px';
+
+    pairDiv.innerHTML = `
+      <video autoplay muted loop playsinline height="300">
+        <source src="${pair.original}" type="video/mp4">
+      </video>
+      <img src="${pair.illustration}" alt="Illustration" height="300">
+    `;
+    container.appendChild(pairDiv);
+  });
+
+  // Auto scroll every few seconds
+  let scrollAmount = 0;
+  setInterval(() => {
+    scrollAmount += 620; // Adjust based on minWidth + gap
+    if (scrollAmount >= container.scrollWidth - container.clientWidth) {
+      scrollAmount = 0;
+    }
+    container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+  }, 5000);
+</script>
+
+<!-- <script>
 
   const videoPairs = [
 
@@ -169,7 +217,7 @@
 
   // Automatically switch every 5 seconds
   setInterval(nextPair, 5000);
-</script>
+</script> -->
 
 
 
