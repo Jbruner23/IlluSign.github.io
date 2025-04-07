@@ -70,8 +70,8 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <!-- <a href="https://arxiv.org/pdf/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark"> -->
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
@@ -79,8 +79,8 @@
                 </a>
               </span>
               <span class="link-block">
-                <!-- <a href="https://arxiv.org/abs/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark"> -->
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
@@ -90,8 +90,8 @@
 
               <!-- Code Link. -->
               <span class="link-block">
-                <!-- <a href="https://github.com/google/nerfies"
-                   class="external-link button is-normal is-rounded is-dark"> -->
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -143,36 +143,56 @@
   ];
 
   const container = document.getElementById("video-pair-container");
+  container.style.display = "flex";
+  container.style.overflowX = "auto";
+  container.style.gap = "20px";
+  container.style.scrollBehavior = "smooth";
+  container.style.paddingBottom = "20px";
+  container.style.scrollSnapType = "x mandatory";
 
-  // Add all pairs to the container
+  // Add video pairs
   videoPairs.forEach(pair => {
     const pairDiv = document.createElement('div');
-    pairDiv.style.minWidth = '600px'; // Adjust based on your layout
+    pairDiv.style.minWidth = '600px';
+    pairDiv.style.flexShrink = '0';
     pairDiv.style.display = 'flex';
-    pairDiv.style.flexDirection = 'row';
     pairDiv.style.alignItems = 'center';
     pairDiv.style.justifyContent = 'center';
     pairDiv.style.gap = '20px';
+    pairDiv.style.scrollSnapAlign = 'start';
 
-    pairDiv.innerHTML = `
-      <video autoplay muted loop playsinline height="300">
-        <source src="${pair.original}" type="video/mp4">
-      </video>
-      <img src="${pair.illustration}" alt="Illustration" height="300">
-    `;
+    const video = document.createElement('video');
+    video.src = pair.original;
+    video.height = 300;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+
+    const img = document.createElement('img');
+    img.src = pair.illustration;
+    img.height = 300;
+    img.alt = "Illustration";
+
+    pairDiv.appendChild(video);
+    pairDiv.appendChild(img);
     container.appendChild(pairDiv);
   });
 
-  // Auto scroll every few seconds
-  let scrollAmount = 0;
-  setInterval(() => {
-    scrollAmount += 620; // Adjust based on minWidth + gap
-    if (scrollAmount >= container.scrollWidth - container.clientWidth) {
-      scrollAmount = 0;
+  // Smooth continuous scroll
+  let scrollSpeed = 0.3; // smaller = slower
+  function smoothScroll() {
+    container.scrollLeft += scrollSpeed;
+    // Reset to beginning if we've scrolled all the way
+    if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
+      container.scrollLeft = 0;
     }
-    container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-  }, 5000);
+    requestAnimationFrame(smoothScroll);
+  }
+
+  requestAnimationFrame(smoothScroll);
 </script>
+
 
 <!-- <script>
 
