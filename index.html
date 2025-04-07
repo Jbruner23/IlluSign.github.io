@@ -51,19 +51,19 @@
           <h1 class="title is-1 publication-title">IlluSign: Illustrating Sign Language Videos by Leveraging the Attention Mechanism</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://www.linkedin.com/in/janna-bruner-55289714b">Janna Bruner</a><sup>1</sup>,</span>
+              <a href="https://www.linkedin.com/in/janna-bruner-55289714b">Janna Bruner</a><sup>1</sup>, </span>
             <span class="author-block">
-              <a href="https://www.linkedin.com/in/amit-moryossef">Amit Moryossef</a><sup>2</sup>,</span>
+              <a href="https://www.linkedin.com/in/amit-moryossef">Amit Moryossef</a><sup>2</sup>, </span>
             <span class="author-block">
-              <a href="https://www.cs.tau.ac.il/~wolf/">Lior Wolf</a><sup>3</sup>,
+              <a href="https://www.cs.tau.ac.il/~wolf/">Lior Wolf</a><sup>3</sup>
             </span>
 
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>Reichman University</span>
-            <span class="author-block"><sup>2</sup>University of Zurich</span>
-            <span class="author-block"><sup>3</sup>Tel Aviv University</span>
+            <span class="author-block"><sup>1</sup>Reichman University  </span>
+            <span class="author-block"><sup>2</sup>  University of Zurich  </span>
+            <span class="author-block"><sup>3</sup>  Tel Aviv University</span>
           </div>
 
           <div class="column has-text-centered">
@@ -169,6 +169,13 @@
     video.muted = true;
     video.playsInline = true;
 
+
+    const source = document.createElement('source');
+    source.src = pair.original;
+    source.type = 'video/mp4';
+
+    video.appendChild(source);
+
     const img = document.createElement('img');
     img.src = pair.illustration;
     img.height = 300;
@@ -179,18 +186,21 @@
     container.appendChild(pairDiv);
   });
 
-  // Smooth continuous scroll
-  let scrollSpeed = 0.3; // smaller = slower
-  function smoothScroll() {
-    container.scrollLeft += scrollSpeed;
-    // Reset to beginning if we've scrolled all the way
-    if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
-      container.scrollLeft = 0;
+  let scrollPos = 0;
+  let scrollSpeed = 0.3;
+
+  function autoScroll() {
+    scrollPos += scrollSpeed;
+    container.scrollLeft = scrollPos;
+
+    if (scrollPos >= container.scrollWidth - container.clientWidth) {
+      scrollPos = 0;
     }
-    requestAnimationFrame(smoothScroll);
+
+    requestAnimationFrame(autoScroll);
   }
 
-  requestAnimationFrame(smoothScroll);
+  requestAnimationFrame(autoScroll);
 </script>
 
 
