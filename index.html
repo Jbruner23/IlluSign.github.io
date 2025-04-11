@@ -39,7 +39,7 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-</head>
+</head> 
 <body>
 
 
@@ -107,16 +107,15 @@
   </div>
 </section>
 
-<section class="hero is-light is-small">
+<!-- <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
-      <div id="video-pair-container" style="display: flex; overflow-x: auto; gap: 20px; scroll-behavior: smooth; padding-bottom: 20px;">
-      <!-- <div id="video-pair-container"> -->
-        <!-- Video pairs will be dynamically inserted here -->
+      <div id="video-pair-container" style="display: flex; overflow-x: auto; gap: 20px; scroll-behavior: smooth; padding-bottom: 20px; scroll-snap-type: x mandatory;">
+        Video pairs will be dynamically inserted here
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Description Section -->
 <section class="hero is-small has-text-centered">
@@ -127,76 +126,156 @@
   </div>
 </section>
 
-<!-- 
-'use client';
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-
-const items = [
-  {
-    video: '/videos/sample1.mp4',
-    image: '/images/sample1.png',
-  },
-  {
-    video: '/videos/sample2.mp4',
-    image: '/images/sample2.png',
-  },
-  {
-    video: '/videos/sample3.mp4',
-    image: '/images/sample3.png',
-  },
-];
-
-export default function IlluSignCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const prev = () => {
-    setCurrentIndex((currentIndex - 1 + items.length) % items.length);
-  };
-
-  const next = () => {
-    setCurrentIndex((currentIndex + 1) % items.length);
-  };
-
-  const { video, image } = items[currentIndex];
-
-  return (
-    <div className="flex flex-col items-center gap-4 p-4">
-      <div className="relative w-[384px] h-[384px] border rounded-2xl overflow-hidden bg-black">
-        <video
-          src={video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-contain"
-        />
-        <img
-          src={image}
-          alt="Illustration"
-          className="absolute top-0 left-0 w-full h-full object-contain opacity-80"
-        />
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container" style="position: relative;">
+      <button id="left-arrow" class="arrow" style="left: 0;">&#8592;</button>
+      <div id="video-pair-container"
+           style="display: flex; overflow-x: auto; gap: 20px; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: 1rem 2rem;">
+        <!-- Video pairs will be inserted here -->
       </div>
-
-      <div className="flex items-center justify-between w-[384px]">
-        <Button onClick={prev} variant="outline">
-          <ArrowLeft className="w-5 h-5" />
-        </Button>
-        <span className="text-sm text-muted-foreground">
-          {currentIndex + 1} / {items.length}
-        </span>
-        <Button onClick={next} variant="outline">
-          <ArrowRight className="w-5 h-5" />
-        </Button>
-      </div>
+      <button id="right-arrow" class="arrow" style="right: 0;">&#8594;</button>
     </div>
-  );
-} -->
+  </div>
+</section>
 
+<style>
+  .video-pair {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 384px;
+  }
+
+  video, .video-pair img {
+    width: 384px;
+    height: 384px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 10px;
+    z-index: 1;
+  }
+</style>
 
 <script>
+  const videoPairs = [
+    { original: "./static/videos/balkan.mp4", illustration: "./static/illustrations/spline_balkan.png" },
+    { original: "./static/videos/bank.mp4", illustration: "./static/illustrations/spline_bank.png" },
+    { original: "./static/videos/berlin.mp4", illustration: "./static/illustrations/spline_berlin.png" },
+    { original: "./static/videos/bonn.mp4", illustration: "./static/illustrations/spline_bonn.png" },
+    { original: "./static/videos/einsam.mp4", illustration: "./static/illustrations/spline_einsam.png" },
+    { original: "./static/videos/gurke.mp4", illustration: "./static/illustrations/spline_gurke.png" },
+    { original: "./static/videos/heraus.mp4", illustration: "./static/illustrations/spline_heraus.png" },
+    { original: "./static/videos/name.mp4", illustration: "./static/illustrations/spline_name.png" },
+    { original: "./static/videos/party.mp4", illustration: "./static/illustrations/spline_party.png" },
+    { original: "./static/videos/st_joseph.mp4", illustration: "./static/illustrations/spline_ST_JOSEPH_INSTITUTE.png" },
+    { original: "./static/videos/mensch.mp4", illustration: "./static/illustrations/spline_mensch.png" }
+  ];
+
+  const container = document.getElementById("video-pair-container");
+
+  videoPairs.forEach(pair => {
+    const pairDiv = document.createElement('div');
+    pairDiv.classList.add('video-pair');
+
+    const video = document.createElement('video');
+    video.src = pair.original;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+
+    const img = document.createElement('img');
+    img.src = pair.illustration;
+    img.alt = "Illustration";
+
+    pairDiv.appendChild(video);
+    pairDiv.appendChild(img);
+    container.appendChild(pairDiv);
+  });
+
+  // Arrows
+  document.getElementById("left-arrow").addEventListener("click", () => {
+    container.scrollLeft -= 400;
+  });
+
+  document.getElementById("right-arrow").addEventListener("click", () => {
+    container.scrollLeft += 400;
+  });
+
+  // Auto-scroll
+  let scrollPos = 0;
+  function autoScroll() {
+    scrollPos += 1;
+    if (scrollPos >= container.scrollWidth - container.clientWidth) {
+      scrollPos = 0;
+    }
+    container.scrollLeft = scrollPos;
+    requestAnimationFrame(autoScroll);
+  }
+  requestAnimationFrame(autoScroll);
+</script>
+
+  <!-- <script>
+    const videoPairs = [
+    { original: "./static/videos/balkan.mp4", illustration: "./static/illustrations/spline_balkan.png" },
+    { original: "./static/videos/bank.mp4", illustration: "./static/illustrations/spline_bank.png" },
+    { original: "./static/videos/berlin.mp4", illustration: "./static/illustrations/spline_berlin.png" },
+    { original: "./static/videos/bonn.mp4", illustration: "./static/illustrations/spline_bonn.png" },
+    { original: "./static/videos/einsam.mp4", illustration: "./static/illustrations/spline_einsam.png" },
+    { original: "./static/videos/gurke.mp4", illustration: "./static/illustrations/spline_gurke.png" },
+    { original: "./static/videos/heraus.mp4", illustration: "./static/illustrations/spline_heraus.png" },
+    { original: "./static/videos/name.mp4", illustration: "./static/illustrations/spline_name.png" },
+    { original: "./static/videos/party.mp4", illustration: "./static/illustrations/spline_party.png" },
+    { original: "./static/videos/st_joseph.mp4", illustration: "./static/illustrations/spline_ST_JOSEPH_INSTITUTE.png" },
+    { original: "./static/videos/mensch.mp4", illustration: "./static/illustrations/spline_mensch.png" }
+  ];
+
+    let currentIndex = 0;
+
+    const videoEl = document.getElementById('video');
+    const imageEl = document.getElementById('image');
+    const counterEl = document.getElementById('counter');
+
+    function updateCarousel() {
+      const item = videoPairs[currentIndex];
+      videoEl.src = item.video;
+      imageEl.src = item.image;
+      counterEl.textContent = `${currentIndex + 1} / ${items.length}`;
+    }
+
+    function prev() {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      updateCarousel();
+    }
+
+    function next() {
+      currentIndex = (currentIndex + 1) % items.length;
+      updateCarousel();
+    }
+
+    // Init
+    updateCarousel();
+  </script> -->
+
+</body>
+</html>
+
+
+<!-- <script>
   const videoPairs = [
     { original: "./static/videos/balkan.mp4", illustration: "./static/illustrations/spline_balkan.png" },
     { original: "./static/videos/bank.mp4", illustration: "./static/illustrations/spline_bank.png" },
@@ -270,7 +349,7 @@ export default function IlluSignCarousel() {
   }
 
   requestAnimationFrame(autoScroll);
-</script>
+</script> -->
 
 
 
