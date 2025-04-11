@@ -177,102 +177,50 @@
     { original: "./static/videos/mensch.mp4", illustration: "./static/illustrations/spline_mensch.png" }
   ];
 
-  let currentIndex = 0;
-  const videoPairContainer = document.getElementById("video-pair-container");
 
-  function renderVideoPairs() {
-    videoPairContainer.innerHTML = '';
-    const item = videoPairs[currentIndex];
-    const videoElement = document.createElement('video');
-    videoElement.src = item.original;
-    videoElement.classList.add('video-illustration');
-    videoElement.setAttribute('controls', true);
+  const container = document.getElementById("video-pair-container");
 
-    const imageElement = document.createElement('img');
-    imageElement.src = item.illustration;
-    imageElement.classList.add('video-illustration');
+  videoPairs.forEach(pair => {
+    const pairDiv = document.createElement('div');
+    pairDiv.classList.add('video-pair');
 
-    videoPairContainer.appendChild(videoElement);
-    videoPairContainer.appendChild(imageElement);
-  }
+    const video = document.createElement('video');
+    video.src = pair.original;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
 
-  function prev() {
-    currentIndex = (currentIndex - 1 + videoPairs.length) % videoPairs.length;
-    scrollToCurrentIndex();
-    renderVideoPairs();
-  }
+    const img = document.createElement('img');
+    img.src = pair.illustration;
+    img.alt = "Illustration";
 
-  function next() {
-    currentIndex = (currentIndex + 1) % videoPairs.length;
-    scrollToCurrentIndex();
-    renderVideoPairs();
-  }
+    pairDiv.appendChild(video);
+    pairDiv.appendChild(img);
+    container.appendChild(pairDiv);
+  });
 
-  // Initialize the first pair
-  renderVideoPairs();
+  // Arrows
+  document.getElementById("left-arrow").addEventListener("click", () => {
+    container.scrollLeft -= 400;
+  });
 
-  // Event listeners for arrows
-  document.getElementById('prev').addEventListener('click', prev);
-  document.getElementById('next').addEventListener('click', next);
-
-  function scrollToCurrentIndex() {
-    const pairWidth = videoPairContainer.children[0].offsetWidth + 20; // width + gap
-    const targetScrollLeft = currentIndex * pairWidth;
-
-    // Safari-specific fix: Use scrollTo method
-    if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
-      videoPairContainer.scrollTo({
-        left: targetScrollLeft,
-        behavior: 'smooth'
-      });
-    } else {
-      videoPairContainer.scrollLeft = targetScrollLeft;
-    }
-  }
-
-  // const container = document.getElementById("video-pair-container");
-
-  // videoPairs.forEach(pair => {
-  //   const pairDiv = document.createElement('div');
-  //   pairDiv.classList.add('video-pair');
-
-  //   const video = document.createElement('video');
-  //   video.src = pair.original;
-  //   video.autoplay = true;
-  //   video.loop = true;
-  //   video.muted = true;
-  //   video.playsInline = true;
-
-  //   const img = document.createElement('img');
-  //   img.src = pair.illustration;
-  //   img.alt = "Illustration";
-
-  //   pairDiv.appendChild(video);
-  //   pairDiv.appendChild(img);
-  //   container.appendChild(pairDiv);
-  // });
-
-  // // Arrows
-  // document.getElementById("left-arrow").addEventListener("click", () => {
-  //   container.scrollLeft -= 400;
-  // });
-
-  // document.getElementById("right-arrow").addEventListener("click", () => {
-  //   container.scrollLeft += 400;
-  // });
+  document.getElementById("right-arrow").addEventListener("click", () => {
+    container.scrollLeft += 400;
+  });
 
     
-  // // Auto-scroll
-  // let scrollPos = 0;
-  // function autoScroll() {
-  //   scrollPos += 1;
-  //   if (scrollPos >= container.scrollWidth - container.clientWidth) {
-  //     scrollPos = 0;
-  //   }
-  //   container.scrollLeft = scrollPos;
-  //   requestAnimationFrame(autoScroll);
-  // }
-  // requestAnimationFrame(autoScroll);
+  // Auto-scroll
+  let scrollPos = 0;
+  function autoScroll() {
+    scrollPos += 1;
+    if (scrollPos >= container.scrollWidth - container.clientWidth) {
+      scrollPos = 0;
+    }
+    container.scrollLeft = scrollPos;
+    requestAnimationFrame(autoScroll);
+  }
+  requestAnimationFrame(autoScroll);
 </script>
 
 
