@@ -107,15 +107,6 @@
   </div>
 </section>
 
-<!-- <section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="video-pair-container" style="display: flex; overflow-x: auto; gap: 20px; scroll-behavior: smooth; padding-bottom: 20px; scroll-snap-type: x mandatory;">
-        Video pairs will be dynamically inserted here
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <!-- Description Section -->
 <section class="hero is-small has-text-centered">
@@ -125,6 +116,7 @@
     </p>
   </div>
 </section>
+
 
 <section class="hero is-light is-small">
   <div class="hero-body">
@@ -140,59 +132,35 @@
 </section>
 
 <style>
-  #video-pair-container {
+  .video-pair {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
     display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding-bottom: 20px;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    flex-direction: column;
+    align-items: center;
+    width: 384px;
   }
 
-  .video-illustration {
+  video, .video-pair img {
     width: 384px;
     height: 384px;
+    border-radius: 10px;
     object-fit: cover;
-    scroll-snap-align: start;
   }
 
-  .arrow-btn {
-    font-size: 24px;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 10px;
-    border-radius: 50%;
+  .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-  }
-
-  .arrow-left {
-    left: 10px;
-  }
-
-  .arrow-right {
-    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 10px;
+    z-index: 1;
   }
 </style>
-</head>
-<body>
-
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container" style="position: relative;">
-      <!-- Left arrow -->
-      <span class="arrow-btn arrow-left" id="prev">&#8592;</span>
-      <div id="video-pair-container">
-        <!-- Video pairs will be dynamically inserted here -->
-      </div>
-      <!-- Right arrow -->
-      <span class="arrow-btn arrow-right" id="next">&#8594;</span>
-    </div>
-  </div>
-</section>
 
 <script>
   const videoPairs = [
@@ -209,44 +177,50 @@
     { original: "./static/videos/mensch.mp4", illustration: "./static/illustrations/spline_mensch.png" }
   ];
 
-  let currentIndex = 0;
+  const container = document.getElementById("video-pair-container");
 
-  const videoPairContainer = document.getElementById("video-pair-container");
+  videoPairs.forEach(pair => {
+    const pairDiv = document.createElement('div');
+    pairDiv.classList.add('video-pair');
 
-  function renderVideoPairs() {
-    videoPairContainer.innerHTML = '';
-    const item = videoPairs[currentIndex];
-    const videoElement = document.createElement('video');
-    videoElement.src = item.original;
-    videoElement.classList.add('video-illustration');
-    videoElement.setAttribute('controls', true);
+    const video = document.createElement('video');
+    video.src = pair.original;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
 
-    const imageElement = document.createElement('img');
-    imageElement.src = item.illustration;
-    imageElement.classList.add('video-illustration');
+    const img = document.createElement('img');
+    img.src = pair.illustration;
+    img.alt = "Illustration";
 
-    videoPairContainer.appendChild(videoElement);
-    videoPairContainer.appendChild(imageElement);
+    pairDiv.appendChild(video);
+    pairDiv.appendChild(img);
+    container.appendChild(pairDiv);
+  });
+
+  // Arrows
+  document.getElementById("left-arrow").addEventListener("click", () => {
+    container.scrollLeft -= 400;
+  });
+
+  document.getElementById("right-arrow").addEventListener("click", () => {
+    container.scrollLeft += 400;
+  });
+
+  // Auto-scroll
+  let scrollPos = 0;
+  function autoScroll() {
+    scrollPos += 1;
+    if (scrollPos >= container.scrollWidth - container.clientWidth) {
+      scrollPos = 0;
+    }
+    container.scrollLeft = scrollPos;
+    requestAnimationFrame(autoScroll);
   }
-
-  function prev() {
-    currentIndex = (currentIndex - 1 + videoPairs.length) % videoPairs.length;
-    renderVideoPairs();
-  }
-
-  function next() {
-    currentIndex = (currentIndex + 1) % videoPairs.length;
-    renderVideoPairs();
-  }
-
-  // Initialize the first pair
-  renderVideoPairs();
-
-  // Event listeners for arrows
-  document.getElementById('prev').addEventListener('click', prev);
-  document.getElementById('next').addEventListener('click', next);
-
+  requestAnimationFrame(autoScroll);
 </script>
+
 
 <!-- <style>
   .video-pair {
