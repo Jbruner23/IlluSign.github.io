@@ -117,6 +117,15 @@
       margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
       text-align: center;
     }
+    .responsive-img {
+      width: 100%;
+      height: auto;
+    }
+    .responsive-container {
+    max-width: 800px; /* or whatever width you prefer */
+    margin: 0 auto;   /* centers the container */
+    text-align: center;
+  }
   </style>
 </head>
 
@@ -478,7 +487,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Results</h2>
         <div class="content has-text-justified">
-          <div class="full-width-container">
+          <div class="responsive-container">
             <img src="./static/images/stages.png" class="responsive-img"/>
           </div>
           <p>
@@ -498,7 +507,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">How does it work?</h2>
         <div class="content has-text-justified">
-          <div class="full-width-container">
+          <div class="responsive-container">
             <img src="./static/images/method.png" class="responsive-img"/>
           </div>
           <p>
@@ -522,7 +531,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Qualitative Comparison</h2>
         <div class="content has-text-justified">
-          <div class="full-width-container">
+          <div class="responsive-container">
             <img src="./static/images/comparison.png" class="responsive-img"/>
           </div>
         </div>
@@ -535,9 +544,9 @@
 </section>
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Generelization to other styles</h2>
+        <h2 class="title is-3">Generalization to other styles</h2>
         <div class="content has-text-justified">
-          <div class="full-width-container">
+          <div class="responsive-container">
             <img src="./static/images/styles.png" class="responsive-img"/>
           </div>
         </div>
