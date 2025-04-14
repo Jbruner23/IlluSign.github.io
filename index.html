@@ -459,6 +459,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
+
           Sign languages are dynamic visual languages that involve hand gestures, in combination with non-manual elements such as facial expressions. While 
           video recordings of sign language are commonly used for education and documentation, the dynamic nature of signs can make it challenging to study
           them in detail, especially for new learners and educators. This work aims to convert sign language video footage into static illustrations, which
@@ -472,6 +473,7 @@
           For the final illustration, we use the attention mechanism to combine the attention weights from both the start and end illustrations, resulting in a
           soft combination. Our method offers a cost-effective solution for generating sign language illustrations at inference time, addressing the lack of such
           resources in educational materials.
+          
           </p>
         </div>
       </div>
@@ -491,10 +493,10 @@
             <img src="./static/images/stages.png" class="responsive-img"/>
           </div>
           <p>
+
             Our method transforms video frames into a unified illustration by first converting two input frames into the target illustration style, then overlaying them and adding directional arrows to indicate motion.
             The rightmost column shows the ground truth illustration, included only for visual comparison as it is not used in our method.
-            <!-- Our method transforms video frames into a unified illustration. The process begins with two input frames, which are first transformed into the target illustration style. This is followed by an overlay step and the addition of directional arrows to indicate motion. The rightmost column displays the ground truth (GT) illustration.
-            Although the GT illustration is not used in our method, it is included solely for visual comparison with the final output. -->
+
           </p>
         </div>
     </div>
@@ -513,11 +515,12 @@
             <img src="./static/images/method.png" class="responsive-img"/>
           </div>
           <p>
-            In the first stage we start by inverting images to their latent noise representation and initiate the diffusion process from the edges image noise.
-            In the final resolution attention layers of the decoder, we inject the Keys and Values from the style image, and the Queries as a linear combination of the queries derived from the image and the queries from the edge map. 
-            In the second stage we apply another diffusion process to fuse query features from the start image and end image, initializing with the latent noise of the start sign image. 
-            In the last resolution attention layers, we inject into the queries a combination of unsmiliar features and hand masks. 
-            The unsimilar features between the queries contribute to the soft overlay of the images, while the hand masks enhace the appearnce of the hands.
+
+            Our method consists of two main stages. (1) The process begins by inverting images to latent noise and starting the diffusion process from the edges image noise. 
+            In the final resolution attention layers, style image features are injected using Keys and Values, while Queries blend features from both the image and edges.
+            (2) A second diffusion stage fuses features from the start and end images, using start image noise for initialization.
+            Finally, hand masks and unsimilar features between the Queries are injected into the the final Queries to enhance hand appearance and enable soft image blending.
+            
           </p>
         </div>
     </div>
