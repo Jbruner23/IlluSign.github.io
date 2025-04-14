@@ -491,8 +491,10 @@
             <img src="./static/images/stages.png" class="responsive-img"/>
           </div>
           <p>
-            Our method transforms video frames into a unified illustration. The process begins with two input frames, which are first transformed into the target illustration style. This is followed by an overlay step and the addition of directional arrows to indicate motion. The rightmost column displays the ground truth (GT) illustration.
-            Although the GT illustration is not used in our method, it is included solely for visual comparison with the final output.
+            Our method transforms video frames into a unified illustration by first converting two input frames into the target illustration style, then overlaying them and adding directional arrows to indicate motion.
+            The rightmost column shows the ground truth illustration, included only for visual comparison as it is not used in our method.
+            <!-- Our method transforms video frames into a unified illustration. The process begins with two input frames, which are first transformed into the target illustration style. This is followed by an overlay step and the addition of directional arrows to indicate motion. The rightmost column displays the ground truth (GT) illustration.
+            Although the GT illustration is not used in our method, it is included solely for visual comparison with the final output. -->
           </p>
         </div>
     </div>
@@ -511,7 +513,7 @@
             <img src="./static/images/method.png" class="responsive-img"/>
           </div>
           <p>
-            Method Overview: In the first stage we start by inverting images to their latent noise representation and initiate the diffusion process from the edges image noise.
+            In the first stage we start by inverting images to their latent noise representation and initiate the diffusion process from the edges image noise.
             In the final resolution attention layers of the decoder, we inject the Keys and Values from the style image, and the Queries as a linear combination of the queries derived from the image and the queries from the edge map. 
             In the second stage we apply another diffusion process to fuse query features from the start image and end image, initializing with the latent noise of the start sign image. 
             In the last resolution attention layers, we inject into the queries a combination of unsmiliar features and hand masks. 
