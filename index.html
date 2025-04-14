@@ -32,7 +32,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -90,12 +90,12 @@
 
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Coming Soon!</span>
                   </a>
               </span>
             </div>
@@ -108,15 +108,17 @@
 </section>
 
 
-<!-- Description Section -->
-<section class="hero is-small has-text-centered">
-  <div class="hero-body">
-    <p style="font-size: 1.2em; max-width: 600px; margin: 0 auto;">
-      Our method converts video frames into a combined illustration
-    </p>
-  </div>
-</section>
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .full-width-container {
+      width: 100vw;  /* Ensure it covers the full viewport width */
+      margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
+      text-align: center;
+    }
+  </style>
+</head>
 
 <section class="hero is-light is-small">
   <div class="hero-body">
@@ -469,6 +471,26 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our method transforms video frames into a unified illustration. The process begins with two input frames, which are first transformed into the target illustration style. This is followed by an overlay step and the addition of directional arrows to indicate motion. The rightmost column displays the ground truth (GT) illustration.
+            Although the GT illustration is not used in our method, it is included solely for visual comparison with the final output.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="full-width-container">
+    <img src="images/method.pdf" class="responsive-img"/>
+  </div>
+</div>
+</section>
 
 
 <!-- 
@@ -487,15 +509,6 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
