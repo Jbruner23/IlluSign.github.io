@@ -44,47 +44,28 @@
     max-width: 800px; /* or whatever width you prefer */
     margin: 0 auto;   /* centers the container */
     text-align: center;
-  } 
-    .results-carousel-3x3 {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0px;
-      padding: 0;
-      margin: 0 auto;
-      justify-content: center;
-      width: 90vw;
-      max-width: 1400px;
-      overflow: hidden;
     }
-
-    .carousel-item-3x3 {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      width: 100%;
-    }
-
-    .carousel-row-3x3 {
+    .carousel-item-3x1 {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 17px;
-      gap: 0px;
+      align-items: flex-start;
       width: 100%;
     }
 
-    .video-item-3x3 {
-      width: calc(33.33%);
+    .video-item-3x1 {
+      width: calc(33.33% - 10px);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .video-item-3x3 video,
-    .video-item-3x3 img {
+    .video-item-3x1 video,
+    .video-item-3x1 img {
       width: 100%;
       display: block;
       margin: 0;
     }
+
   </style>
 </head>
 <body>
@@ -136,47 +117,46 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <div id="results-carousel" class="carousel results-carousel-3x3">
+          <div id="results-carousel" class="carousel">
             <!-- Carousel Page 1 -->
-            <div class="carousel-item carousel-item-3x3">
-              <div class="carousel-row-3x3">
-                <div class="video-item video-item-3x3">
+            <div class="carousel-item carousel-item-3x1">
+              <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/balkan.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_balkan.png">
                 </div>
-                <div class="video-item video-item-3x3">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/bank.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_bank.png">
                 </div>
-                <div class="video-item video-item-3x3">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/mensch.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_mensch.png">
                 </div>
               </div>
-              <div class="carousel-row-3x3">
-                <div class="video-item video-item-3x3">
+              <div class="carousel-item carousel-item-3x1">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/party.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_party.png">
                 </div>
-                <div class="video-item video-item-3x3">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/berlin.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_berlin.png">
                 </div>
-                <div class="video-item video-item-3x3">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/bonn.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_bonn.png">
                 </div>
               </div>
-              <div class="carousel-row-3x3">
-                <div class="video-item video-item-3x3">
+              <div class="carousel-item carousel-item-3x1">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/einsam.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_einsam.png">
                 </div>
-                <div class="video-item video-item-3x3">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/gurke.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_gurke.png">
                 </div>
-                <div class="video-item video-item-3x3">
+                <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/heraus.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_heraus.png">
                 </div>
