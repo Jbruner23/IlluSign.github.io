@@ -271,97 +271,12 @@
         box-sizing: border-box;
     }
 
-    .video-item-2x2 {
-        width: calc(49%); /* Maintain exactly one-third width minus gap */
-        /* box-sizing: border-box; */
-    }
-
     .video-item-3x3 video,
     .video-item-3x3 img {
       width: 100%;
       display: block;
       margin: 0;
     }
-
-    .video-title-3x3 {
-        text-align: center;
-        margin-top: 0px;
-        font-family: "Times New Roman", serif;
-        font-weight: normal !important;
-        /* Reduced font size range for better scaling */
-        font-size: clamp(8px, 1.5vw, 20px); /* Smaller minimum size, reduced scaling rate */
-        
-        /* Keep truncation attempt */
-        /* display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-break: break-word;
-        max-height: 2.4em;
-        line-height: 1.2; */
-    }
-
-    .teaser-container {
-    position: relative;
-    width: 40vw; /* 80% of viewport width */
-    margin: 0 auto; /* Center the container */
-    max-width: 1400px; /* Maximum width on large screens */
-    background-color: #000; /* Black background for letterboxing */
-    overflow: hidden; Prevent content overflow
-}
-
-.teaser-video {
-    width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Remove any extra space below video */
-    object-fit: contain; /* Ensure video fits without stretching */
-}
-
-/* Optional overlay for controls or text */
-.teaser-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.teaser-container:hover .teaser-overlay {
-    opacity: 1;
-}
-
-.audio-toggle {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-.audio-toggle:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.audio-toggle span {
-    color: white;
-    font-size: 20px;
-}
 
 .text-container {
     width: 70vw !important; /* 70% of viewport width */
@@ -526,9 +441,14 @@
         </div>
       </div>
     </div>
-  </section>
-
 </section>
+
+<section class="section hero is-small">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+      </div>
+    </div>
   <table width="100%" align="center">
     <tbody>
         <div id="results-carousel" class="carousel results-carousel-3x3">
@@ -584,8 +504,17 @@
                 <video autoplay loop muted playsinline><source src="./static/videos/bonn.mp4" type="video/mp4"></video>
                 <img src="./static/illustrations/spline_bonn.png">
               </div>
-              </div>
-          </div>
+           </div>
+        </div>
+
+
+      </div>
+    </div>
+
+</div>
+</tbody>
+</table>
+
 </section>
   <!-- <section class="section hero is-small">
     <div class="container is-max-desktop">
@@ -695,7 +624,7 @@
           </div>
           <p>
 
-            Our method transforms video frames into a unified illustration by first converting two input frames into the target illustration style, then overlaying them and adding directional arrows to indicate motion.
+            Our pipeline transforms video frames into a unified illustration by first converting two input frames into the target illustration style, then overlaying them and adding directional arrows to indicate motion.
             The rightmost column shows the ground truth illustration, included only for visual comparison as it is not used in our method.
 
           </p>
