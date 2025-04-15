@@ -29,42 +29,457 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+    var sources = document.querySelectorAll('source');
 
+    if ("IntersectionObserver" in window) {
+      var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(video) {
+          if (video.isIntersecting) {
+            for (var source in video.target.children) {
+              var videoSource = video.target.children[source];
+              if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                videoSource.src = videoSource.dataset.src;
+              }
+            }
+
+            video.target.load();
+            video.target.classList.remove("lazy");
+            lazyVideoObserver.unobserve(video.target);
+          }
+        });
+      });
+
+      lazyVideos.forEach(function(lazyVideo) {
+        lazyVideoObserver.observe(lazyVideo);
+      });
+    }
+  });
+  </script>
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollable Table with Arrow Buttons</title>
   <style>
-      .full-width-container {
+    .full-width-container {
       width: 100vw;  /* Ensure it covers the full viewport width */
       margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
       text-align: center;
     }
     .responsive-img {
-      width: 100%;
-      height: auto;
+    width: 120%;
+    height: auto;
+    margin-bottom: 2rem;
     }
     .responsive-container {
-    max-width: 800px; /* or whatever width you prefer */
-    margin: 0 auto;   /* centers the container */
-    text-align: center;
-    }
-    .carousel-item-3x1 {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
     }
 
-    .video-item-3x1 {
-      width: calc(33.33% - 10px);
+    .page-container {
+      width: 1200px;
+      min-height: 1000px;
+      margin: 0 auto;
+      text-align: left;
+      padding-top: 5em;
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-bottom: 1em;
+      height: auto;
+    }
+
+    .scrollable-table-container {
       display: flex;
-      flex-direction: column;
       align-items: center;
     }
 
-    .video-item-3x1 video,
-    .video-item-3x1 img {
+    #scrollableTableWrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: auto;
+      display: table;
+      border-collapse: separate;
+      box-sizing: border-box;
+      text-indent: initial;
+      line-height: normal;
+      font-weight: normal;
+      font-size: medium;
+      font-style: normal;
+      color: -internal-quirk-inherit;
+      text-align: start;
+      border-spacing: 2px;
+      border-color: gray;
+      white-space: normal;
+      font-variant: normal;
+    }
+
+    .last-updated {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      color: black;
+      /* text color */
+      font-size: 1.0em;
+      z-index: 1000;
+      /* ensures it's on top of other elements */
+    }
+
+    .container-1 {
+      height:750px;
+    }
+
+    .container-2{
+      height:550px;
+
+    }
+
+    .video-container-character {
+      position: relative;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      height: 100%;
+      padding: 0;
+    }
+
+    .video-container-stylizaton {
+      position: relative;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      height: 100%;
+      padding: 0;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      content: '';
+    }
+
+    .video-container-character .swiper-button-next,
+    .video-container-character .swiper-button-prev {
+      top: 23rem;
+      outline: none;
+    }
+
+    .video-container-stylizaton .swiper-button-next,
+    .video-container-stylizaton .swiper-button-prev {
+      top: 15rem;
+      outline: none;
+    }
+
+    .swiper-icon {
+      font-size: 4rem;
+      color: black;
+    }
+    .video-size {
+    height: 335px;
+    }
+    .video-size-2 {
+    height: 250px;
+    }
+
+    .responsive-img {
+    width: 80vw;  /* Always 80% of viewport width */
+    max-width: 1400px;  /* Prevents it from exceeding original size */
+    height: auto;  /* Maintains aspect ratio */
+    display: block;
+    margin: 0 auto;  /* Center horizontally */
+}
+
+.full-width-container {
+    width: 100vw;  /* Ensure it covers the full viewport width */
+    margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
+    text-align: center;
+}
+
+
+
+    .video-container-four {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: calc(0.5%); /* Space between videos */
+            max-width: 1100px; /* Adjust to your preferred width */
+            margin: 0 auto; /* Center align the grid */
+        }
+        .video-item-four {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-title-four {
+            margin-bottom: 0px; /* Space between title and video */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .video-container-five {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns */
+            gap: calc(0.5%); /* Space between videos */
+            max-width: 1400px; /* Adjust to your preferred width */
+            margin: 0 auto; /* Center align the grid */
+        }
+
+        /* carouseal with 3 items and 3 rows */
+
+        .results-carousel-3x3 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px;
+        padding: 0;
+        margin: 0 auto;
+        justify-content: center;
+        width: 90vw; /* 80% of viewport width */
+        max-width: 1400px;
+        background-color: var(--main-bg-color);
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .carousel-item-3x3 {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        width: 100%;
+        background-color: var(--main-bg-color) !important;
+    }
+
+    .carousel-row-3x3 {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 17px;
+        gap: 0px;
+        width: 100%;
+    }
+
+    .video-item-3x3 {
+        width: calc(33%); /* Maintain exactly one-third width minus gap */
+        box-sizing: border-box;
+    }
+
+    .video-item-2x2 {
+        width: calc(49%); /* Maintain exactly one-third width minus gap */
+        /* box-sizing: border-box; */
+    }
+
+    .video-item-3x3 video,
+    .video-item-3x3 img {
       width: 100%;
       display: block;
       margin: 0;
     }
+
+    .video-title-3x3 {
+        text-align: center;
+        margin-top: 0px;
+        font-family: "Times New Roman", serif;
+        font-weight: normal !important;
+        /* Reduced font size range for better scaling */
+        font-size: clamp(8px, 1.5vw, 20px); /* Smaller minimum size, reduced scaling rate */
+        
+        /* Keep truncation attempt */
+        /* display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        max-height: 2.4em;
+        line-height: 1.2; */
+    }
+
+    .teaser-container {
+    position: relative;
+    width: 40vw; /* 80% of viewport width */
+    margin: 0 auto; /* Center the container */
+    max-width: 1400px; /* Maximum width on large screens */
+    background-color: #000; /* Black background for letterboxing */
+    overflow: hidden; Prevent content overflow
+}
+
+.teaser-video {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any extra space below video */
+    object-fit: contain; /* Ensure video fits without stretching */
+}
+
+/* Optional overlay for controls or text */
+.teaser-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.teaser-container:hover .teaser-overlay {
+    opacity: 1;
+}
+
+.audio-toggle {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.audio-toggle:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.audio-toggle span {
+    color: white;
+    font-size: 20px;
+}
+
+.text-container {
+    width: 70vw !important; /* 70% of viewport width */
+    margin: 0 auto !important; /* Center the container */
+    max-width: 1200px !important; /* Optional: maximum width on very large screens */
+    box-sizing: border-box !important; /* Makes sure padding is included in width calculation */
+    text-align: left !important;
+}
+
+/* Optional: adjust width and padding for smaller screens */
+@media screen and (max-width: 768px) {
+    .text-container {
+        width: 85vw !important; /* Slightly wider on mobile for better readability */
+        padding: 15px !important;
+        text-align: left !important;
+    }
+}
+
+/* Adjust video size for different screen sizes */
+@media screen and (max-width: 768px) {
+    .teaser-container {
+        width: 90vw; /* Slightly wider on mobile for better visibility */
+    }
+}
+
+    @media screen and (max-width: 480px) {
+        .video-title-3x3 {
+            font-size: clamp(8px, 1.2vw, 14px); /* Smaller minimum size, reduced scaling rate */
+            margin-top: 0px;
+            margin: 0px;
+            /* -webkit-line-clamp: 2;
+            line-clamp: 2;
+            max-height: 1.2em; */
+        }
+
+        .results-carousel-3x3 {
+            width: 90vw;
+            gap: 0px;
+        }
+        
+        .carousel-item-3x3,
+        .carousel-row-3x3 {
+            gap: 0px;
+        }
+        
+        .video-item-3x3 {
+            width: calc(33%); /* Adjust for smaller gap */
+        }
+    }
+
+            /* qulitative comparison css */
+
+            /* Container that holds the row of videos */
+            .new-row-container {
+            display: flex;
+            justify-content: space-between; /* Evenly space out the videos */
+            gap: 10px; /* Space between the videos */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
+            padding: 0px 0;
+            width: 100%;
+            max-width: 100%; /* Ensure the container takes up the full width */
+            margin: 0 auto; /* Center the container */
+            overflow: hidden; /* Ensure any excess content is clipped */
+            }
+
+
+
+            /* Title above the video */
+            .new-text-prompt {
+            font-size: 20px; /* Size of the title text */
+            color: #333; /* Dark color for the text */
+            }
+
+            /* Title above the video */
+            .new-text-prompt-bold {
+            font-size: 20px; /* Size of the title text */
+            font-weight: bold;
+            color: #02376c; /* Dark color for the text */
+            }
+
+            /* Make the video fill the width of its container */
+            .new-video-item video {
+            width: 100%; /* Make the video take the full width of the item */
+            display: block;
+            border: none; /* No border around the video */
+            outline: none; /* Remove focus outline */
+            height: auto; /* Maintain video aspect ratio */
+            }
+
+            /* Optional: style for the prompt below the video */
+            /* .new-video-item .new-text-prompt:last-child {
+            font-size: 20px;
+            font-weight: normal;
+            color: #666; /* Lighter color for the prompt } */
+
+            /* Responsive design: Stack the videos vertically on smaller screens */
+            @media (max-width: 768px) {
+            .new-video-item {
+                flex: 1 1 100%; /* Stack videos on smaller screens */
+                width: 100%; /* Full width on smaller devices */
+            }
+
+            .new-video-item:hover {
+                transform: none; /* Remove scale effect on hover */
+            }
+
+                    /* Title above the video */
+        .new-text-prompt {
+            font-size: clamp(8px, 1.2vw, 14px); /* Smaller minimum size, reduced scaling rate */
+            color: #333; /* Dark color for the text */
+            }
+
+            .new-text-prompt-bold {
+            font-size: clamp(8px, 1.2vw, 14px); /* Smaller minimum size, reduced scaling rate */
+            font-weight: bold;
+            color: #02376c; /* Dark color for the text */
+            }
+            }
 
   </style>
 </head>
@@ -113,13 +528,72 @@
     </div>
   </section>
 
-  <section class="section hero is-small">
+</section>
+  <table width="100%" align="center">
+    <tbody>
+        <div id="results-carousel" class="carousel results-carousel-3x3">
+        
+        <!-- Carousel Item 1 (3 rows of 3 videos) -->
+        <div class="carousel-item carousel-item-3x3">
+            <!-- Row 1: 3 videos -->
+            <div class="carousel-row-3x3">
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/balkan.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_balkan.png">
+                </div>
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/bank.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_bank.png">
+                </div>
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/mensch.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_mensch.png">
+                </div>
+              </div>
+            </div>
+        <!-- Carousel Item 2 (3 rows of 3 videos) -->
+          <div class="carousel-item carousel-item-3x3">    
+          <!-- Row 1: 3 videos -->
+          <div class="carousel-row-3x3">
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/einsam.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_einsam.png">
+              </div>
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/gurke.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_gurke.png">
+              </div>
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/heraus.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_heraus.png">
+              </div>
+          </div>
+        <!-- Carousel Item 3 (3 rows of 3 videos) -->
+        <div class="carousel-item carousel-item-3x3">
+          <!-- Row 1: 3 videos -->
+          <div class="carousel-row-3x3">
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/party.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_party.png">
+              </div>
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/berlin.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_berlin.png">
+              </div>
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/bonn.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_bonn.png">
+              </div>
+              </div>
+          </div>
+</section>
+  <!-- <section class="section hero is-small">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <div id="results-carousel" class="carousel">
-            <!-- Carousel Page 1 -->
-            <div class="carousel-item carousel-item-3x1">
+            Carousel Page 1
+             <div class="carousel-item carousel-item-3x1">
               <div class="video-item-3x1">
                   <video autoplay loop muted playsinline><source src="./static/videos/balkan.mp4" type="video/mp4"></video>
                   <img src="./static/illustrations/spline_balkan.png">
@@ -166,7 +640,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <script>
     bulmaCarousel.attach('#results-carousel', {
