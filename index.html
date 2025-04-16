@@ -70,7 +70,7 @@
       margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
       text-align: center;
     }
-    .responsive-img {
+    /* .responsive-img {
     width: 100vw;
     max-width: 1200px;
     height: auto;
@@ -79,9 +79,18 @@
     margin-bottom: 2rem;
     margin-left: calc(-50vw + 50%);
     text-align: center;
+    } */
+
+    .responsive-img {
+      width: 100vw;
+      max-width: 1200px;
+      height: auto;
+      display: block;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 2rem;
     }
-
-
     /* .responsive-img { */
     /* width: 80vw;  Always 80% of viewport width */
     /* max-width: 1400px;  Prevents it from exceeding original size */
